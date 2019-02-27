@@ -17,6 +17,8 @@ mongoose.connect(config.DATABASE, {useNewUrlParser: true});
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+app.use(express.static('client/build'));
+
 // GET //
 
 app.get('/api/getBook', (req, res) => {
@@ -170,5 +172,13 @@ app.delete('/api/book_delete', (req, res) => {
 })
 
 // SERVER //
+
+if (process.env.NODE_ENV === 'production') {
+    const path = require('path');
+
+    app.get('/*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'))
+    })
+}
 
 app.listen(config.PORT, () => {})
