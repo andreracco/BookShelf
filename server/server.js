@@ -163,14 +163,12 @@ app.post('/api/book_update', (req, res) => {
 app.delete('/api/book_delete', (req, res) => {
     let id = req.query.id;
 
-    Book.findByIdAndRemove(id, (err, doc) => {
+    Book.findByIdAndRemove(id, (err) => {
         if (err) return res.status(400).send(err);
-        res.json(doc);
+        res.json(true);
     })
 })
 
 // SERVER //
 
-app.listen(config.PORT, () => {
-    console.log('SERVER UP AND RUNNING');
-})
+app.listen(config.PORT, () => {})
